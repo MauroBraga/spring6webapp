@@ -1,16 +1,15 @@
 package br.com.mrb.spring6webapp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Getter
 @Setter
 @Entity
@@ -24,4 +23,7 @@ public class Publisher {
     private String city;
     private String state;
     private String zip;
+
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
 }

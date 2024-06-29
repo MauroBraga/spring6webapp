@@ -8,6 +8,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"title","isbn","authors"})
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,4 +25,7 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author_book",joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
+
+    @ManyToOne
+    private Publisher publisher;
 }

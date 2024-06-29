@@ -26,43 +26,53 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Publisher ciela = new Publisher();
-        ciela.setPublisherName("Ciela");
-        ciela.setAddress("Patriarh Evtimii 12");
-        ciela.setCity("Sofia");
-        ciela.setState("Sofia");
-        ciela.setZip("12345");
-
-        publisherRepository.save(ciela);
-
-        Author erick =  new Author();
-        erick.setFirstName("Erick");
-        erick.setLastName("Evans");
+        Author eric = new Author();
+        eric.setFirstName("Eric");
+        eric.setLastName("Evans");
 
         Book ddd = new Book();
-        ddd.setIsbn("123456");
         ddd.setTitle("Domain Driven Design");
+        ddd.setIsbn("123456");
 
-        Author erickSaved = authorRepository.save(erick);
+        Author ericSaved = authorRepository.save(eric);
         Book dddSaved = bookRepository.save(ddd);
 
-        Author rod =  new Author();
-        rod.setFirstName("Erick");
-        rod.setLastName("Evans");
+        Author rod = new Author();
+        rod.setFirstName("Rod");
+        rod.setLastName("Johnson");
 
         Book noEJB = new Book();
-        noEJB.setIsbn("123456");
-        noEJB.setTitle("Domain Driven Design");
+        noEJB.setTitle("J2EE Development without EJB");
+        noEJB.setIsbn("54757585");
 
-        Author rodkSaved = authorRepository.save(rod);
+        Author rodSaved = authorRepository.save(rod);
         Book noEJBSaved = bookRepository.save(noEJB);
 
-        erickSaved.getBooks().add(dddSaved);
-        rodkSaved.getBooks().add(noEJBSaved);
+        ericSaved.getBooks().add(dddSaved);
+        rodSaved.getBooks().add(noEJBSaved);
+        dddSaved.getAuthors().add(ericSaved);
+        noEJBSaved.getAuthors().add(rodSaved);
+
+
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("My Publisher");
+        publisher.setAddress("123 Main");
+        Publisher savedPublisher = publisherRepository.save(publisher);
+
+        dddSaved.setPublisher(savedPublisher);
+        noEJBSaved.setPublisher(savedPublisher);
+
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
 
         System.out.println("In Bootstrap");
-        System.out.println("Author Count: "+ authorRepository.count());
-        System.out.println("Book Count: "+bookRepository.count());
+        System.out.println("Author Count: " + authorRepository.count());
+        System.out.println("Book Count: " + bookRepository.count());
+
+
+
         System.out.println("Publisher Count: " + publisherRepository.count());
     }
 }

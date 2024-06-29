@@ -9,6 +9,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"firstName", "lastName"})
+@ToString
 @Getter
 @Setter
 @Entity
